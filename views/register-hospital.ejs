@@ -1,0 +1,315 @@
+<!-- views/register-hospital.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Include necessary headers -->
+  <title>Hospital Registration</title>
+  <!-- Add your stylesheets and other resources -->
+  <link rel="stylesheet" href="/stylesheets/register-hospital.css">
+  <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
+  <link rel="shortcut icon" href="../images/AaturaMain.png" type="image/x-icon">
+  <!-- Font Awesone CDN link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Custom CSS file -->
+
+</head>
+<body>
+
+
+
+
+
+
+    <div class="header">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li id="services"><a href="#services1">Services</a>
+                <ul>
+                    <li id="hospitalServices"><a href="">Hospital Services</a>
+                        <ul>
+                            <li><a href="/services/emergencyRoom">Emergency Room Services</a></li>
+                            <li><a href="/services/shortTermHospitalisation">Short Term Hospitalisation</a></li>
+                            <li><a href="/services/XRay">X-Ray OR Radiology Services</a></li>
+                            <li><a href="/services/bloodservices">Blood Services</a></li>
+                            <li><a href="/services/LaboratoryServices">Laboratory Services</a></li>
+                            <li><a href="/services/Prescription">Prescription Services</a></li>
+                            <li><a href="/services/GeneralSurgical">General & Speciality Surgical Services</a></li>
+                            <li><a href="/services/Pediatric">Pediatric Services</a></li>
+                            <li><a href="/services/SurgicalSpecialist">Good Access to Surgical Specialist</a></li>
+                            <li><a href="/services/Rehabitations">Rehabitations Services</a></li>
+                            <li><a href="/services/NursingServices">Home Nursing Services</a></li>
+                            <li><a href="/services/MentalHealthCare">Mental HealthCare</a></li>
+                            <li><a href="/services/NationalCounselling">National Counseling</a></li>
+                            <li><a href="/services/GeneticTesting">Genetic Testing & Counseling</a></li>
+                            <li><a href="/services/FamilySupport">Family Support Services</a></li>
+                            <li><a href="/services/FinancialServices">Financial Services</a></li>
+                            <li><a href="/services/CaseManagementSystem">Case Management Services</a></li>
+                            <li><a href="/services/SocialWorkServices">Social Work Services</a></li>
+    
+                        </ul>
+                    </li>
+                    <li id="ClinicalServices"><a href="">Clinical Services</a>
+                        <ul>
+                            <li><a href="/deepartments/Orthopaedics">Orthopaedics</a></li>
+                                <li><a href="/deepartments/JointReplacement">Joint Replacement</a></li>
+                                <li><a href="/deepartments/Medicine">Medicine</a></li>
+                                <li><a href="/deepartments/Trauma">Trauma</a></li>
+                                <li><a href="/deepartments/Paediatics">Paediatics</a></li>
+                                <li><a href="/deepartments/Deratology">Deratology</a></li>
+                                <li><a href="/deepartments/Nephrology">Nephrology</a></li>
+                                <li><a href="/deepartments/Gastrology">Gastrology</a></li>
+                                <li><a href="/deepartments/Neurology">Neurology</a></li>
+                                <li><a href="/deepartments/PainManagement">Pain Management</a></li>
+                                <li><a href="/deepartments/BloodServices">Blood Services</a></li>
+                                <li><a href="/deepartments/Cardiology">Cardiology</a></li>
+                                <li><a href="/deepartments/Psychiatry">Psychiatry</a></li>
+                                <li><a href="/deepartments/IntensiceCare">Intensice Care Unit (I.C.U)</a></li>
+                                <li><a href="/deepartments/Gynacology">Gynacology</a></li>
+                                <li><a href="/deepartments/IVF">IVF - Infertility</a></li>
+                                <li><a href="/deepartments/Maternity">Maternity</a></li>
+                                <li><a href="/deepartments/GeneralSurgery">General Surgery</a></li>
+                                <li><a href="/deepartments/ENT">ENT</a></li>
+                                <li><a href="/deepartments/CosmeticSurgery">Cosmetic Surgery</a></li>
+                                <li><a href="/deepartments/Cuology">Cuology</a></li>
+                                <li><a href="/deepartments/NeuroSurgery">Neuro Surgery</a></li>
+                                <li><a href="/deepartments/OncoSurgery">Onco Surgery</a></li>
+                                <li><a href="/deepartments/Dietician">Dietician</a></li>
+                                <li><a href="/deepartments/PlasticSurgery">Plastic Surgery</a></li>
+                                <li><a href="/deepartments/Dialysis">Dialysis</a></li>
+                                <li><a href="/deepartments/GastroSurgery">Gastro Surgery</a></li>
+                        </ul>
+                    </li>
+                    <li id="deepartments"><a href="/admin/admin-login">Deepartments</a>
+                        <ul>
+                                <li><a href="/deepartments/Orthopaedics">Orthopaedics</a></li>
+                                <li><a href="/deepartments/JointReplacement">Joint Replacement</a></li>
+                                <li><a href="/deepartments/Medicine">Medicine</a></li>
+                                <li><a href="/deepartments/Trauma">Trauma</a></li>
+                                <li><a href="/deepartments/Paediatics">Paediatics</a></li>
+                                <li><a href="/deepartments/Deratology">Deratology</a></li>
+                                <li><a href="/deepartments/Nephrology">Nephrology</a></li>
+                                <li><a href="/deepartments/Gastrology">Gastrology</a></li>
+                                <li><a href="/deepartments/Neurology">Neurology</a></li>
+                                <li><a href="/deepartments/PainManagement">Pain Management</a></li>
+                                <li><a href="/deepartments/BloodServices">Blood Services</a></li>
+                                <li><a href="/deepartments/Cardiology">Cardiology</a></li>
+                                <li><a href="/deepartments/Psychiatry">Psychiatry</a></li>
+                                <li><a href="/deepartments/IntensiceCare">Intensice Care Unit (I.C.U)</a></li>
+                                <li><a href="/deepartments/Gynacology">Gynacology</a></li>
+                                <li><a href="/deepartments/IVF">IVF - Infertility</a></li>
+                                <li><a href="/deepartments/Maternity">Maternity</a></li>
+                                <li><a href="/deepartments/GeneralSurgery">General Surgery</a></li>
+                                <li><a href="/deepartments/ENT">ENT</a></li>
+                                <li><a href="/deepartments/CosmeticSurgery">Cosmetic Surgery</a></li>
+                                <li><a href="/deepartments/Cuology">Cuology</a></li>
+                                <li><a href="/deepartments/NeuroSurgery">Neuro Surgery</a></li>
+                                <li><a href="/deepartments/OncoSurgery">Onco Surgery</a></li>
+                                <li><a href="/deepartments/Dietician">Dietician</a></li>
+                                <li><a href="/deepartments/PlasticSurgery">Plastic Surgery</a></li>
+                                <li><a href="/deepartments/Dialysis">Dialysis</a></li>
+                                <li><a href="/deepartments/GastroSurgery">Gastro Surgery</a></li>
+                        </ul>
+                    </li>
+                    <li id="DiagnosticsServices"><a href="">Diagnostics Services</a>
+                        <ul>
+                            <li><a href="/patient/patient-login">Blood Test</a></li>
+                            <li><a href="/patient/patient-login">Urine Test</a></li>
+                            <li><a href="/patient/patient-login">Stool Test</a></li>
+                            <li><a href="/patient/patient-login">X-Ray</a></li>
+                            <li><a href="/patient/patient-login">CT Scan</a></li>
+                            <li><a href="/patient/patient-login">MRI</a></li>
+                            <li><a href="/patient/patient-login">ECG</a></li>
+                            <li><a href="/patient/patient-login">Blood Test</a></li>
+                            <li><a href="/patient/patient-login">Urine Test</a></li>
+                            <li><a href="/patient/patient-login">Stool Test</a></li>
+                            <li><a href="/patient/patient-login">X-Ray</a></li>
+                            <li><a href="/patient/patient-login">CT Scan</a></li>
+                            <li><a href="/patient/patient-login">MRI</a></li>
+                            <li><a href="/patient/patient-login">ECG</a></li>
+                        </ul>
+                    </li>
+                    <li id="LaboratoryServices"><a href="">Laboratory Services</a>
+                        <ul>
+                            <li><a href="/doctor/doctor-login">Blood Test</a></li>
+                            <li><a href="/doctor/doctor-login">Urine Test</a></li>
+                            <li><a href="/doctor/doctor-login">Stool Test</a></li>
+                            <li><a href="/doctor/doctor-login">X-Ray</a></li>
+                            <li><a href="/doctor/doctor-login">CT Scan</a></li>
+                            <li><a href="/doctor/doctor-login">MRI</a></li>
+                            <li><a href="/doctor/doctor-login">ECG</a></li>
+                        </ul>
+                    </li>
+                    <li id="TransfusionServices"><a href="/admin/admin-login">Transfusion Services</a>
+                        <ul>
+                            <li><a href="/admin/admin-login">Blood Test</a></li>
+                            <li><a href="/admin/admin-login">Urine Test</a></li>
+                        </ul>
+                    </li>
+                    <li id="hospitalsfunctions"><a href="/patient/patient-login">Function of Hospitals</a>
+                        <ul>
+                            <li><a href="/patient/patient-login">Emergency Room</a></li>
+                            <li><a href="/patient/patient-login">ICU</a></li>
+                            <li><a href="/patient/patient-login">OT</a></li>
+                            <li><a href="/patient/patient-login">Ward</a></li>
+                            <li><a href="/patient/patient-login">OPD</a></li>
+                        </ul>
+                    </li>
+                    <li id="bedtypes"><a href="/doctor/doctor-login">Types Of Bed</a>
+                        <ul>
+                            <li><a href="/doctor/doctor-login">General Bed</a></li>
+                            <li><a href="/doctor/doctor-login">Semi Private Bed</a></li>
+                            <li><a href="/doctor/doctor-login">Private Bed</a></li>
+                            <li><a href="/doctor/doctor-login">ICU Bed</a></li>
+                            <li><a href="/doctor/doctor-login">OT Bed</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/contact">Contact</a></li> 
+            <li id="Login"><a href="/patient/patient-login">Login</a>
+                <ul>
+                    <li><a href="/patient/patient-login">Patients Login</a></li>
+                    <li><a href="/doctor/doctor-login">Doctor Login</a></li>
+                    <li><a href="/admin/admin-login">Admin Login</a></li>
+                </ul>
+            </li>
+            <li id="register"><a href="/patient/patient-signup">Register</a>
+                <ul>
+                    <li><a href="/patient/patient-signup">Patients</a></li>
+                    <li><a href="/doctor/doctor-signup">Doctor</a></li>
+                    <li><a href="/admin/admin-signup">Admin</a></li>
+                    <li><a href="/hospital//hospital-registeration">Hospitals</a></li>
+                </ul>
+            </li>   
+        </ul>
+    </div>
+    <hr>
+
+
+  <div class="message">
+    <!-- Check if errorMessage is defined and has length before accessing its properties -->
+    <!-- Check if there is an error flash message and display it -->
+    <% if (typeof errorMessage !== 'undefined' && errorMessage && errorMessage.length > 0) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= errorMessage[0] %>
+        <button class="close-error" onclick="closeErrorMessage()">×</button>
+      </div>
+    <% } %>
+
+  
+
+    <!-- Check if there is a success flash message and display it -->
+    <% if (successMessage && successMessage.length > 0) { %>
+      <div class="alert alert-success" role="alert">
+        <%= successMessage[0] %>
+        <button class="close-error" onclick="closeErrorMessage()">×</button>
+      </div>
+    <% } %>
+
+  </div>
+
+  <!-- Your registration form for hospitals -->
+  <div class="register-hospital">
+    <form  class="form-container" action="/hospital/hospital-registeration" method="post">
+      <h2>Hospital Registration</h2>
+      <label for="gstin">GSTIN:</label>
+      <input type="text" id="gstin" name="gstin" required>
+  
+      <label for="licenseNumber">License Number:</label>
+      <input type="text" id="licenseNumber" name="licenseNumber" required>
+  
+      <label for="certifiedProofDocument">Certified Proof Document:</label>
+      <input type="text" id="certifiedProofDocument" name="certifiedProofDocument" required>
+  
+      <label for="hospitalName">Hospital Name:</label>
+      <input type="text" id="hospitalName" name="hospitalName" required>
+  
+      <label for="street">Street:</label>
+      <input type="text" id="street" name="street" required>
+  
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required>
+  
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required>
+  
+      <label for="zip">ZIP:</label>
+      <input type="text" id="zip" name="zip" required>
+  
+      <label for="directorName">Director Name:</label>
+      <input type="text" id="directorName" name="directorName" required>
+  
+      <label for="directorContact">Director Contact:</label>
+      <input type="text" id="directorContact" name="directorContact" required>
+  
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+  
+      <label for="contactNumber">Contact Number:</label>
+      <input type="text" id="contactNumber" name="contactNumber" required>
+  
+      <!-- Add other fields as needed -->
+  
+      <button type="submit">Register Hospital</button>
+      <!-- Link or button to redirect to home page -->
+      <div class="home">
+        <a href="/">Go to Home</a>
+      </div>
+    </form>
+  
+  </div>
+
+  <footer>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#007C9D" fill-opacity="1" d="M0,224L48,229.3C96,235,192,245,288,229.3C384,213,480,171,576,160C672,149,768,171,864,186.7C960,203,1056,213,1152,208C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+
+    <div class="last-footer">
+      <div class="last-footer-left">
+          <p>© 2024 Atura HealthCare. All Rights Reserved.</p>
+      </div>
+      <div class="last-footer-right">
+          <div class="last-footer-right-item">
+              <a href=""><i class="fa-brands fa-facebook"></i></a>
+          </div>
+          
+          <div class="last-footer-right-item">
+              <a href=""><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+          <div class="last-footer-right-item">
+              <a href=""><i class="fa-brands fa-instagram"></i></a>
+          </div>
+          <div class="last-footer-right-item">
+              <a href=""><i class="fa-brands fa-twitter"></i></a>
+          </div>
+          <div class="last-footer-right-item">
+              <a href=""><i class="fa-solid fa-hospital"></i></a>
+          </div>
+      </div>
+  </div>
+  </footer>
+  <!-- Include any additional content or scripts -->
+  <script>
+    // JavaScript function to close the error message
+    function closeErrorMessage() {
+      // Find the parent div with the class "message" and remove it
+      var messageDiv = document.querySelector('.message');
+      messageDiv.parentNode.removeChild(messageDiv);
+    }
+</script>
+<!-- Include Socket.IO library -->
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    // Connect to the Socket.IO server
+    const socket = io();
+
+    // Listen for new registration notifications
+    socket.on('newRegistrationNotification', (data) => {
+        // Handle the notification (e.g., show an alert)
+        alert('New registration received: ' + JSON.stringify(data));
+    });
+</script>
+
+</body>
+</html>

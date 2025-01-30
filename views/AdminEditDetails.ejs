@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Edit Details</title>
+    <link rel="shortcut icon" href="../images/AaturaMain.png" type="image/x-icon">
+</head>
+<body>
+    <h1>Admin Edit Your Details</h1>
+    
+    <form action="/admin/edit-details" method="POST" enctype="multipart/form-data">
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= admin.name %>">
+        </p>
+        <p>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="<%= admin.username %>">
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= admin.email %>">
+        </p>
+        <p>
+            <label for="mobilenumber">Mobile Number:</label>
+            <input type="text" id="mobilenumber" name="mobile" value="<%= admin.mobile %>">
+        </p>
+        
+        
+
+        <img src="/uploads/<%= admin.profileImage %>" alt="Profile Image" style="max-width: 150px; max-height: 150px;">
+        <p>
+            <label for="profileImage">Profile Image:</label>
+            <input type="file" id="profileImage" name="profileImage">
+        </p>
+        <!-- Add other fields as necessary -->
+        <button type="submit">Update Details</button>
+    </form>
+    <a href="/doctor/doctor-profile">Cancel</a>
+</body>
+</html>

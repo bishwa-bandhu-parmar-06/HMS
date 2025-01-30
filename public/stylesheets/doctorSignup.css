@@ -1,0 +1,867 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+}
+.menu-top {
+    height: 80px;
+    width: 100%;
+    /* background-color: #7b1212; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0 20px;
+}
+
+.menu-top-right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.menu-top-right a {
+    height: min-content;
+    width: 308px;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+}
+.menu-top-right a img {
+    mix-blend-mode: multiply;
+    height: 80px;
+    width: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+.menu-top-right a:hover {
+    color: #ccc;
+}
+.menu-top-mid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.menu-top-mid .search-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-left: 150px;
+}
+.menu-top-mid .search-area input {
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 400px;
+    padding: 5px;
+}
+.menu-top-mid .search-area button {
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 40px;
+    margin: 2px;
+    background-color: transparent;
+    padding: 5px;
+    font-size: 20px;
+}
+
+/*############## SUGGESTION BOX  STYLES START HERE ###############################*/
+
+
+
+#suggestions {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    width: 400px;
+    position: absolute;
+    top: 55px;
+    left: 0%;
+    background-color: #fff;
+}
+.suggestion-content {
+    width: 100%;
+    text-align: center;
+}
+
+
+/*############## SUGGESTION BOX  STYLES END HERE ###############################*/
+
+
+.menu-top-mid .search-area button i {
+    color: #000;
+}
+.menu-top-mid .search-area button:hover {
+    background-color: #007C9D;
+    border-radius: 5px;
+}
+.menu-top-mid .search-area button:hover i {
+    color: #fff;
+}
+
+
+.menu-top-left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.menu-top-left .menu-top-left-item {
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-left: 20px;
+}
+.menu-top-left .menu-top-left-item i {
+    color: #000;
+    font-size: 20px;
+}
+.menu-top-left .menu-top-left-item:hover {
+    background-color: #007C9D;
+}
+.menu-top-left .menu-top-left-item:hover i {
+    color: #fff;
+}
+.menu-top-left .menu-top-left-item:nth-child(1) {
+    margin-left: 0;
+}
+
+
+#logoutbtn {
+    height: 40px;
+    width: 40px;
+    outline: none;
+    background-color: transparent;
+    font-size: 18px;
+    text-align: center;
+    margin-left: 40px;
+    color: #f5f5f5;
+    border: none;
+}
+#logoutbtn:hover {
+    color: #007C9D;
+}
+
+
+/*###################### it is for the New menu navigation  ##############################*/
+.header {
+    height: 50px;
+    width: 100%;
+    background-color: #007C9D;
+    position: relative; /* Add this line */
+}
+.header ul {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.header ul li {
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+.header ul li a {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+}
+.header ul li:hover {
+    background-color: white;
+    color: #007C9D;
+    a {
+        color: #007C9D;
+        transition: all 0.3s ease-in-out;
+    }
+}
+#register:hover ul {
+    display: block;
+}
+#register ul {
+    height: 50px;
+    width: 150px;
+    /* margin-top: 5px; */
+    height: min-content;
+    width: 200px;
+    background-color: #007C9D;
+    display: none;
+    /* padding: 20px; */
+    /* border-radius: 5px; */
+    position: absolute; /* Add this line */
+    top: 100%; /* Add this line */
+    right: 20px; /* Add this line */
+    z-index: 999; /* Add this line */
+}
+#register ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+#register ul li a {
+    color: white;
+}
+#register ul li:hover {
+    background-color: white;
+    color: #007C9D;
+    a {
+        color: #007C9D;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+
+/* %%%%%%%%%%%%%%%%%%%  It is for login sdection hover content %%%%%%%%%%%%%%%%%%%% */
+
+#Login:hover ul {
+    display: block;
+}
+#Login ul {
+    height: 50px;
+    width: 150px;
+    /* margin-top: 5px; */
+    height: min-content;
+    width: 200px;
+    background-color: #007C9D;
+    display: none;
+    /* padding: 20px; */
+    /* border-radius: 5px; */
+    position: absolute; /* Add this line */
+    top: 100%; /* Add this line */
+    right: 270px; /* Add this line */
+    z-index: 999; /* Add this line */
+}
+#Login ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+#Login ul li a {
+    color: white;
+}
+#Login ul li:hover {
+    background-color: white;
+    color: #007C9D;
+    a {
+        color: #007C9D;
+        transition: all 1s ease-in-out;
+    }
+}
+/* #############################    IT IS FOR SERVICES DROPDOWN     ####################### */
+#services:hover ul {
+    display: block;
+}
+#services ul {
+    height: 50px;
+    width: 300px;
+    height: min-content;
+    background-color: #007C9D;
+    display: none;
+    position: absolute; 
+    top: 100%; 
+    left: 33%; 
+    z-index: 999;
+}
+#services ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+#services ul li a {
+    color: white;
+}
+#services ul li:hover {
+    background-color: white;
+    color: #007C9D;
+    a {
+        color: #007C9D;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+
+/* #############################    IT IS FOR HOSPITAL SERVICES DROPDOWN     ####################### */
+#services #hospitalServices ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+#services #hospitalServices:hover ul {
+    display: block;
+}
+
+#hospitalServices ul {
+    height: min-content;
+    width: 400px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#hospitalServices ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#hospitalServices:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#hospitalServices ul li:hover {
+    background-color: white;
+}
+
+#hospitalServices ul li:hover a {
+    color: #007C9D;
+}
+
+
+/* #############################    IT IS FOR Clinical SERVICES DROPDOWN     ####################### */
+#services #ClinicalServices ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+#services #ClinicalServices:hover ul {
+    display: block;
+}
+
+#ClinicalServices ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#ClinicalServices ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#ClinicalServices:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#ClinicalServices ul li:hover {
+    background-color: white;
+}
+
+#ClinicalServices ul li:hover a {
+    color: #007C9D;
+}
+
+
+
+/* #############################    IT IS FOR deepartments SERVICES DROPDOWN     ####################### */
+#services #deepartments ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+#services #deepartments:hover ul {
+    display: block;
+}
+
+#deepartments ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#deepartments ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#deepartments:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#deepartments ul li:hover {
+    background-color: white;
+}
+
+#deepartments ul li:hover a {
+    color: #007C9D;
+}
+
+
+
+/* #############################    IT IS FOR DiagnosticsServices SERVICES DROPDOWN     ####################### */
+#services #DiagnosticsServices ul {
+    display: none;
+    position: absolute;
+    top: 36%;
+    left: 100%;
+}
+
+#services #DiagnosticsServices:hover ul {
+    display: block;
+}
+
+#DiagnosticsServices ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#DiagnosticsServices ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#DiagnosticsServices:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#DiagnosticsServices ul li:hover {
+    background-color: white;
+}
+
+#DiagnosticsServices ul li:hover a {
+    color: #007C9D;
+}
+
+
+/* #############################    IT IS FOR LaboratoryServices SERVICES DROPDOWN     ####################### */
+#services #LaboratoryServices ul {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+}
+
+#services #LaboratoryServices:hover ul {
+    display: block;
+}
+
+#LaboratoryServices ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#LaboratoryServices ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#LaboratoryServices:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#LaboratoryServices ul li:hover {
+    background-color: white;
+}
+
+#LaboratoryServices ul li:hover a {
+    color: #007C9D;
+}
+
+/* #############################    IT IS FOR TransfusionServices SERVICES DROPDOWN     ####################### */
+#services #TransfusionServices ul {
+    display: none;
+    position: absolute;
+    top: 60%;
+    left: 100%;
+}
+
+#services #TransfusionServices:hover ul {
+    display: block;
+}
+
+#TransfusionServices ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#TransfusionServices ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#TransfusionServices:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#TransfusionServices ul li:hover {
+    background-color: white;
+}
+
+#TransfusionServices ul li:hover a {
+    color: #007C9D;
+}
+
+
+/* #############################    IT IS FOR hospitalsfunctions SERVICES DROPDOWN     ####################### */
+#services #hospitalsfunctions ul {
+    display: none;
+    position: absolute;
+    top: 70%;
+    left: 100%;
+}
+
+#services #hospitalsfunctions:hover ul {
+    display: block;
+}
+
+#hospitalsfunctions ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#hospitalsfunctions ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#hospitalsfunctions:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#hospitalsfunctions ul li:hover {
+    background-color: white;
+}
+
+#hospitalsfunctions ul li:hover a {
+    color: #007C9D;
+}
+
+/* #############################    IT IS FOR bedtypes SERVICES DROPDOWN     ####################### */
+#services #bedtypes ul {
+    display: none;
+    position: absolute;
+    top: 80%;
+    left: 100%;
+}
+
+#services #bedtypes:hover ul {
+    display: block;
+}
+
+#bedtypes ul {
+    height: min-content;
+    width: 300px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    background-color: #007C9D;
+}
+
+#bedtypes ul li {
+    margin: auto;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    line-height: 40px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+#bedtypes:hover ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+#bedtypes ul li:hover {
+    background-color: white;
+}
+
+#bedtypes ul li:hover a {
+    color: #007C9D;
+}
+
+
+/*################# REGISTERATIONS FORM #############################*/
+
+.register {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    width: 400px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007C9D;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #00506b;
+}
+
+form p {
+    margin-top: 10px;
+    text-align: center;
+}
+form p a {
+    text-decoration: none;
+    color: #000;
+}
+form p a:hover {
+    text-decoration: underline;
+    color: #007C9D;
+}
+
+/*##################LAST FOOTER###################*/
+
+.last-footer {
+    height: 87px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #007C9D;
+}
+.last-footer p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+}
+.last-footer-right {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.last-footer-right-item {
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+.last-footer-right-item a {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+}
+.last-footer-right-item a:hover {
+    background-color: #007C9D;
+    color: #fff;
+}
+.last-footer-right-item i {
+    color: #000;
+    font-size: 20px;
+}
+.last-footer-right-item:hover i {
+    color: #fff;
+}

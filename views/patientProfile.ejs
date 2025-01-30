@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <!-- Font Awesone CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS file -->
+    <link rel="stylesheet" href="/stylesheets/pstientProfile.css">
+    <link rel="shortcut icon" href="../images/AaturaMain.png" type="image/x-icon">
+</head>
+<body>
+     <!-- It is For menu top section -->
+     <div class="menu-top">
+        <div class="menu-top-right">
+            <a href="/">
+                <img src="/images/AaturaMain.png" alt="logo">
+            </a>
+        </div>
+        
+        <div class="menu-top-left">
+            <div class="menu-top-left-item">
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            
+            <div class="menu-top-left-item">
+                <a href=""><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+            <div class="menu-top-left-item">
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <div class="menu-top-left-item">
+                <a href=""><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <div class="menu-top-left-item">
+                <a href=""><i class="fa-solid fa-hospital"></i></a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="header">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li id="services"><a href="#services1">Services</a>
+                <ul>
+                    <li id="hospitalServices"><a href="/patient/patient-login">Hospital Services</a>
+                        <ul>
+                            <li><a href="/patient/patient-login">Emergency Room Services</a></li>
+                            <li><a href="/patient/patient-login">Short Term Hospitalisation</a></li>
+                            <li><a href="/patient/patient-login">X-Ray OR Radiology Services</a></li>
+                            <li><a href="/patient/patient-login">Blood Services</a></li>
+                            <li><a href="/patient/patient-login">Laboratory Services</a></li>
+                            <li><a href="/patient/patient-login">Prescription Services</a></li>
+                            <li><a href="/patient/patient-login">General & Speciality Surgical Services</a></li>
+                            <li><a href="/patient/patient-login">Pediatric Services</a></li>
+                            <li><a href="/patient/patient-login">Good Access to Surgical Specialist</a></li>
+                            <li><a href="/patient/patient-login">Rehabitations Services</a></li>
+                            <li><a href="/patient/patient-login">Home Nursing Services</a></li>
+                            <li><a href="/patient/patient-login">Mental HealthCare</a></li>
+                            <li><a href="/patient/patient-login">National Counseling</a></li>
+                            <li><a href="/patient/patient-login">Genetic Testing & Counseling</a></li>
+                            <li><a href="/patient/patient-login">Family Support Services</a></li>
+                            <li><a href="/patient/patient-login">Financial Services</a></li>
+                            <li><a href="/patient/patient-login">Case Management Services</a></li>
+                            <li><a href="/patient/patient-login">Social Work Services</a></li>
+    
+                        </ul>
+                    </li>
+                    <li id="ClinicalServices"><a href="/doctor/doctor-login">Clinical Services</a>
+                        <ul>
+                            <li><a href="/doctor/doctor-login">Orthopaedics</a></li>
+                            <li><a href="/doctor/doctor-login">Joint Replacement</a></li>
+                            <li><a href="/doctor/doctor-login">Medicine</a></li>
+                            <li><a href="/doctor/doctor-login">Trauma</a></li>
+                            <li><a href="/doctor/doctor-login">Paediatics</a></li>
+                            <li><a href="/doctor/doctor-login">Deratology</a></li>
+                            <li><a href="/doctor/doctor-login">Nephrology</a></li>
+                            <li><a href="/doctor/doctor-login">Gastrology</a></li>
+                            <li><a href="/doctor/doctor-login">Neurology</a></li>
+                            <li><a href="/doctor/doctor-login">Pain Management</a></li>
+                            <li><a href="/doctor/doctor-login">Blood Services</a></li>
+                            <li><a href="/doctor/doctor-login">Cardiology</a></li>
+                            <li><a href="/doctor/doctor-login">Psychiatry</a></li>
+                            <li><a href="/doctor/doctor-login">Intensice Care Unit (I.C.U)</a></li>
+                            <li><a href="/doctor/doctor-login">Gynacology</a></li>
+                            <li><a href="/doctor/doctor-login">IVF - Infertility</a></li>
+                            <li><a href="/doctor/doctor-login">Maternity</a></li>
+                            <li><a href="/doctor/doctor-login">General Surgery</a></li>
+                            <li><a href="/doctor/doctor-login">ENT</a></li>
+                            <li><a href="/doctor/doctor-login">Cosmetic Surgery</a></li>
+                            <li><a href="/doctor/doctor-login">Cuology</a></li>
+                            <li><a href="/doctor/doctor-login">Neuro Surgery</a></li>
+                            <li><a href="/doctor/doctor-login">Onco Surgery</a></li>
+                            <li><a href="/doctor/doctor-login">Dietician</a></li>
+                            <li><a href="/doctor/doctor-login">Plastic Surgery</a></li>
+                            <li><a href="/doctor/doctor-login">Dialysis</a></li>
+                            <li><a href="/doctor/doctor-login">Gastro Surgery</a></li>
+                        </ul>
+                    </li>
+                    <li id="deepartments"><a href="/admin/admin-login">Deepartments</a>
+                        <ul>
+                                <li><a href="/deepartments/Orthopaedics">Orthopaedics</a></li>
+                                <li><a href="/deepartments/JointReplacement">Joint Replacement</a></li>
+                                <li><a href="/deepartments/Medicine">Medicine</a></li>
+                                <li><a href="/deepartments/Trauma">Trauma</a></li>
+                                <li><a href="/deepartments/Paediatics">Paediatics</a></li>
+                                <li><a href="/deepartments/Deratology">Deratology</a></li>
+                                <li><a href="/deepartments/Nephrology">Nephrology</a></li>
+                                <li><a href="/deepartments/Gastrology">Gastrology</a></li>
+                                <li><a href="/deepartments/Neurology">Neurology</a></li>
+                                <li><a href="/deepartments/PainManagement">Pain Management</a></li>
+                                <li><a href="/deepartments/BloodServices">Blood Services</a></li>
+                                <li><a href="/deepartments/Cardiology">Cardiology</a></li>
+                                <li><a href="/deepartments/Psychiatry">Psychiatry</a></li>
+                                <li><a href="/deepartments/IntensiceCare">Intensice Care Unit (I.C.U)</a></li>
+                                <li><a href="/deepartments/Gynacology">Gynacology</a></li>
+                                <li><a href="/deepartments/IVF">IVF - Infertility</a></li>
+                                <li><a href="/deepartments/Maternity">Maternity</a></li>
+                                <li><a href="/deepartments/GeneralSurgery">General Surgery</a></li>
+                                <li><a href="/deepartments/ENT">ENT</a></li>
+                                <li><a href="/deepartments/CosmeticSurgery">Cosmetic Surgery</a></li>
+                                <li><a href="/deepartments/Cuology">Cuology</a></li>
+                                <li><a href="/deepartments/NeuroSurgery">Neuro Surgery</a></li>
+                                <li><a href="/deepartments/OncoSurgery">Onco Surgery</a></li>
+                                <li><a href="/deepartments/Dietician">Dietician</a></li>
+                                <li><a href="/deepartments/PlasticSurgery">Plastic Surgery</a></li>
+                                <li><a href="/deepartments/Dialysis">Dialysis</a></li>
+                                <li><a href="/deepartments/GastroSurgery">Gastro Surgery</a></li>
+                        </ul>
+                    </li>
+                    <li id="DiagnosticsServices"><a href="/patient/patient-login">Diagnostics Services</a>
+                        <ul>
+                            <li><a href="/patient/patient-login">Blood Test</a></li>
+                            <li><a href="/patient/patient-login">Urine Test</a></li>
+                            <li><a href="/patient/patient-login">Stool Test</a></li>
+                            <li><a href="/patient/patient-login">X-Ray</a></li>
+                            <li><a href="/patient/patient-login">CT Scan</a></li>
+                            <li><a href="/patient/patient-login">MRI</a></li>
+                            <li><a href="/patient/patient-login">ECG</a></li>
+                            <li><a href="/patient/patient-login">Blood Test</a></li>
+                            <li><a href="/patient/patient-login">Urine Test</a></li>
+                            <li><a href="/patient/patient-login">Stool Test</a></li>
+                            <li><a href="/patient/patient-login">X-Ray</a></li>
+                            <li><a href="/patient/patient-login">CT Scan</a></li>
+                            <li><a href="/patient/patient-login">MRI</a></li>
+                            <li><a href="/patient/patient-login">ECG</a></li>
+                        </ul>
+                    </li>
+                    <li id="LaboratoryServices"><a href="/doctor/doctor-login">Laboratory Services</a>
+                        <ul>
+                            <li><a href="/doctor/doctor-login">Blood Test</a></li>
+                            <li><a href="/doctor/doctor-login">Urine Test</a></li>
+                            <li><a href="/doctor/doctor-login">Stool Test</a></li>
+                            <li><a href="/doctor/doctor-login">X-Ray</a></li>
+                            <li><a href="/doctor/doctor-login">CT Scan</a></li>
+                            <li><a href="/doctor/doctor-login">MRI</a></li>
+                            <li><a href="/doctor/doctor-login">ECG</a></li>
+                        </ul>
+                    </li>
+                    <li id="TransfusionServices"><a href="/admin/admin-login">Transfusion Services</a>
+                        <ul>
+                            <li><a href="/admin/admin-login">Blood Test</a></li>
+                            <li><a href="/admin/admin-login">Urine Test</a></li>
+                        </ul>
+                    </li>
+                    <li id="hospitalsfunctions"><a href="/patient/patient-login">Function of Hospitals</a>
+                        <ul>
+                            <li><a href="/patient/patient-login">Emergency Room</a></li>
+                            <li><a href="/patient/patient-login">ICU</a></li>
+                            <li><a href="/patient/patient-login">OT</a></li>
+                            <li><a href="/patient/patient-login">Ward</a></li>
+                            <li><a href="/patient/patient-login">OPD</a></li>
+                        </ul>
+                    </li>
+                    <li id="bedtypes"><a href="/doctor/doctor-login">Types Of Bed</a>
+                        <ul>
+                            <li><a href="/doctor/doctor-login">General Bed</a></li>
+                            <li><a href="/doctor/doctor-login">Semi Private Bed</a></li>
+                            <li><a href="/doctor/doctor-login">Private Bed</a></li>
+                            <li><a href="/doctor/doctor-login">ICU Bed</a></li>
+                            <li><a href="/doctor/doctor-login">OT Bed</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/contact">Contact</a></li> 
+            <!-- <li id="Login"><a href="">Log-Out</a></li> -->
+            <form action="/patient/patient-logout" method="POST">
+                <button type="submit">Logout</button>
+            </form>
+            <li id="register"><a href="/patient/edit-details">Edit</a>
+                <!-- <ul>
+                    <li><a href="/patient/patient-signup">Patients</a></li>
+                    <li><a href="/doctor/doctor-signup">Doctor</a></li>
+                    <li><a href="/admin/admin-signup">Admin</a></li>
+                    <li><a href="/hospital//hospital-registeration">Hospitals</a></li>
+                </ul> -->
+            </li>   
+        </ul>
+    </div>
+
+
+
+    <div class="patientsDetails">
+        <div class="div">
+            <div class="patientImage">
+                <% if (patient.profileImage) { %>
+                    <img src="/uploads/<%= patient.profileImage %>" alt="Profile Image">
+                <% } else { %>
+                    <img src="../images/doc.jpg" alt="Profile Image">
+                <% } %>
+        
+            </div>
+            <button>Edit</button>
+            <button>Logout</button>
+            <button>Remove</button>
+        </div>
+        <div class="patientContent">
+            <% patient.forEach(patient => { %>
+                <p><strong>Name:</strong> <%= patient.name %></p>
+                <p><strong>User Name:</strong> <%= patient.username %></p>
+                <p><strong>Email:</strong> <%= patient.email %></p>
+                <p><strong>Mobile Number:</strong> <%= patient.mobilenumber %></p>
+                <p><strong>Date of Birth:</strong> <%= patient.dob %></p>
+                <p><strong>Gender:</strong> <%= patient.gender %></p>
+                <p><strong>State:</strong> <%= patient.State %></p>
+                <p><strong>District:</strong> <%= patient.District %></p>
+                <p><strong>City:</strong> <%= patient.City %></p>
+                <p><strong>Pincode:</strong> <%= patient.Pincode %></p>
+            <% }); %>
+    
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1 class="heading1">Patient Profile</h1>
+    
+    <h1>Welcome, <%= patient.username %></h1>
+    <% if (patient.profileImage) { %>
+        <img src="/uploads/<%= patient.profileImage %>" alt="Profile Image" style="max-width: 150px; max-height: 150px;">
+    <% } else { %>
+        <p>No profile image uploaded.</p>
+    <% } %>
+    <!-- Display patient information -->
+    <div>
+        <p><strong>Name:</strong> <%= patient.name %></p>
+        <p><strong>User Name:</strong> <%= patient.username %></p>
+        <p><strong>Email:</strong> <%= patient.email %></p>
+        <p><strong>Mobile Number:</strong> <%= patient.mobilenumber %></p>
+        <p><strong>Date of Birth:</strong> <%= patient.dob %></p>
+        <p><strong>Gender:</strong> <%= patient.gender %></p>
+        <p><strong>State:</strong> <%= patient.State %></p>
+        <p><strong>District:</strong> <%= patient.District %></p>
+        <p><strong>City:</strong> <%= patient.City %></p>
+        <p><strong>Pincode:</strong> <%= patient.Pincode %></p>
+        <!-- Add more patient information as needed -->
+    </div>
+
+    <form action="/patient/patient-logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+    
+
+    <%- include('./partials/footer') %>
+</body>
+</html>

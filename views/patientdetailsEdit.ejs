@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Details</title>
+    <link rel="shortcut icon" href="../images/AaturaMain.png" type="image/x-icon">
+</head>
+<body>
+    <h1>Edit Your Details</h1>
+    
+    <form action="/patient/edit-details" method="POST" enctype="multipart/form-data">
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= patient.name %>">
+        </p>
+        <p>
+            <label for="Username">User Name:</label>
+            <input type="text" id="Username" name="username" value="<%= patient.username %>">
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= patient.email %>">
+        </p>
+        <p>
+            <label for="mobilenumber">Mobile Number:</label>
+            <input type="number" id="mobilenumber" name="mobilenumber" value="<%= patient.mobilenumber %>">
+        </p>
+        <p>
+            <label for="dob">Date of Birth :</label>
+            <input type="date" id="dob" name="dob" value="<%= patient.dob %>">
+        </p>
+        <p>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" value="<%= patient.gender %>">
+        </p>
+        <p>
+            <label for="State">State:</label>
+            <input type="text" id="State" name="State" value="<%= patient.State %>">
+        </p>
+
+        <p>
+            <label for="District">District:</label>
+            <input type="text" id="District" name="District" value="<%= patient.District %>">
+        </p>
+        <p>
+            <label for="City">City:</label>
+            <input type="text" id="City" name="City" value="<%= patient.City %>">
+        </p>
+        <p>
+            <label for="Pincode">Pincode:</label>
+            <input type="text" id="Pincode" name="Pincode" value="<%= patient.Pincode %>">
+        </p>
+        <img src="/uploads/<%= patient.profileImage %>" alt="Profile Image" style="max-width: 150px; max-height: 150px;">
+        <p>
+            <label for="profileImage">Profile Image:</label>
+            <input type="file" id="profileImage" name="profileImage">
+        </p>
+        <!-- Add other fields as necessary -->
+        <button type="submit">Update Details</button>
+    </form>
+    <a href="/patient/patient-profile">Cancel</a>
+</body>
+</html>

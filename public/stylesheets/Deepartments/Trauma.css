@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.heading1 {
+    text-align: center;
+    margin: 20px;
+}
+.heading1:hover {
+    text-decoration: underline;
+    color: #007c9d;
+    cursor: pointer;
+}
+
+.des {
+    text-align: center;
+    line-height: 25px;
+}
+.content1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: green; */
+}
+
+.content1 .content-left {
+    height: min-content;
+    width: 50%;
+    padding: 20px;
+    /* background-color: red; */
+}
+.content-left h3 {
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+.content-left h4 {
+    margin-left: 50px;
+}
+.content-left p {
+    height: min-content;
+    width: 80%;
+    padding: 10px;
+    /* background-color: yellow; */
+    margin-left: 70px;
+}
+.content1 .content-right {
+    height: 500px;
+    width: 50%;
+    /* background-color: gray; */
+}
+
+
+.content2 {
+    height: 200px;
+    width: 80%;
+    /* background-color: rebeccapurple; */
+}
+.content2 h3 {
+    margin-left: 50px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+.content2 p {
+    margin-left: 60px;
+    padding-left: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+
+.content3 {
+    height: 200px;
+    width: 80%;
+    /* background-color: rebeccapurple; */
+}
+.content3 h3 {
+    margin-left: 50px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+.content3 p {
+    margin-left: 60px;
+    padding-left: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+
+.content4 {
+    height: 200px;
+    width: 80%;
+    /* background-color: rebeccapurple; */
+}
+.content4 h3 {
+    margin-left: 50px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+.content4 p {
+    margin-left: 60px;
+    padding-left: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+
+
+.content5 {
+    height: 200px;
+    width: 80%;
+    /* background-color: rebeccapurple; */
+}
+.content5 h3 {
+    margin-left: 50px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+}
+.content5 p {
+    margin-left: 60px;
+    padding-left: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+.patient {
+    margin: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+.patient:hover {
+    text-decoration: underline;
+    color: #007c9d;
+}
