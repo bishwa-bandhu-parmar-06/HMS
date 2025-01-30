@@ -1,5 +1,5 @@
 // Import Mongoose
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Define the schema for the contact form data
 const contactSchema = new mongoose.Schema({

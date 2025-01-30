@@ -1,10 +1,10 @@
 // routes/index.js
 
-const express = require('express');
+import express from'express';
 const router = express.Router();
-const Doctor = require('../models/doctorModel');
-const Patient = require("../models/patientModel");
-const Admin = require("../models/adminModel");
+import Doctor from'../models/doctorModel.js';
+import Patient from"../models/patientModel.js";
+import Admin from"../models/adminModel.js";
 // Home Page
 router.get('/', async (req, res) => {
     // Render your home page
@@ -87,4 +87,4 @@ router.get('/allDoctors', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

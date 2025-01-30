@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const connect = async () => {
     try {
-        const dbURI = process.env.BACKEND_URI || 'mongodb://127.0.0.1:27017/mydatabase'; // Fallback URI
+        const dbURI = process.env.BACKEND_URI;
 
+        // Connect to MongoDB with updated options
         await mongoose.connect(dbURI, {
-            useNewUrlParser: true,  // No longer needed in Mongoose 6+
-            useUnifiedTopology: true, // No longer needed in Mongoose 6+
         });
-
         console.log('✅ Connected to MongoDB');
 
         mongoose.connection.on('disconnected', () => {
@@ -27,4 +25,4 @@ const connect = async () => {
     }
 };
 
-module.exports = { connect };
+export default { connect };

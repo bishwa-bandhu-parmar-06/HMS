@@ -1,3 +1,4 @@
+
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
@@ -18,15 +19,8 @@ const __dirname = path.dirname(__filename);
 // Import database config
 import dbConfig from './database/config.js';
 
-// Import models
-import Patient from './models/patientModel.js';
-import Doctor from './models/doctorModel.js';
-import Hospitals from './models/hospitalModel.js';
-import Admin from './models/adminModel.js';
-import Visitors from './models/homeModel.js';
-
 // Import routes
-import doctorDetails from './routes/doctorDetails.js';
+
 import patientAppointmentRoute from './routes/appointmentForm.js';
 import indexRouter from './routes/index.js';
 import patientRoutes from './routes/patient.js';
@@ -99,48 +93,6 @@ io.on('connection', (socket) => {
 });
 
 app.set('socketio', io);
-
-// Search route
-app.get('/search', async (req, res) => {
-    const query = req.query.q;
-
-    if (!query || query.trim() === '') {
-        return res.render('error', { error: 'Please enter a valid search query.' });
-    }
-
-    try {
-        const patients = await Patient.find({ $text: { $search: query } });
-        const doctors = await Doctor.find({ $text: { $search: query } });
-        const hospitals = await Hospitals.find({ $text: { $search: query } }).select('name');
-        const admin = await Admin.find({ $text: { $search: query } });
-
-        res.render('searchResults', { patients, doctors, hospitals, admin, query, suggestions: { hospitals } });
-    } catch (error) {
-        console.error('Error during search:', error);
-        res.status(500).render('error', { error: 'Internal Server Error' });
-    }
-});
-
-// Suggest route
-app.get('/suggest', async (req, res) => {
-    const query = req.query.q;
-
-    if (!query || query.trim() === '') {
-        return res.json([]);
-    }
-
-    try {
-        const doctors = await Doctor.find({ name: { $regex: `^${query}`, $options: 'i' } }).limit(5);
-        const patients = await Patient.find({ name: { $regex: `^${query}`, $options: 'i' } }).limit(5);
-        const hospitals = await Hospitals.find({ name: { $regex: `^${query}`, $options: 'i' } }).limit(5);
-        const admin = await Admin.find({ name: { $regex: `^${query}`, $options: 'i' } }).limit(5);
-
-        res.json([...doctors, ...patients, ...hospitals, ...admin]);
-    } catch (error) {
-        console.error('Error fetching suggestions:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 // Handle invalid routes
 app.use((req, res, next) => {

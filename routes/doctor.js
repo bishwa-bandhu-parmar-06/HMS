@@ -1,17 +1,25 @@
-const express = require('express');
-const router = express.Router();
-const Doctor = require('../models/doctorModel');
-const bcrypt = require('bcrypt'); // Import bcrypt library
-const jwt = require("jsonwebtoken");
-const SECRETKEY = "NOTESAPI";
-const cookieParser = require("cookie-parser"); // Corrected the import statement
-const authenticate = require("../middleware/auth");
-const path = require('path');
-const multer = require('multer');
-const fs = require('fs');
-const flash = require('connect-flash');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import multer from 'multer';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import flash from 'connect-flash';
 
-router.use(cookieParser()); // Initialize cookie-parser middleware
+import Doctor from '../models/doctorModel.js';
+import authenticate from '../middleware/auth.js';
+
+const router = express.Router();
+router.use(cookieParser());
+router.use(flash());
+
+const SECRETKEY = "NOTESAPI";
+
+// Fix for __dirname in ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Ensure upload directory exists
 const uploadDir = path.join(__dirname, '../public/images/uploads');
@@ -21,68 +29,47 @@ if (!fs.existsSync(uploadDir)) {
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images/uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
+    destination: (req, file, cb) => cb(null, uploadDir),
+    filename: (req, file, cb) =>
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
 });
-
-const upload = multer({ storage: storage });
-
-// Middleware for flash messages
-router.use(flash());
+const upload = multer({ storage });
 
 // Render doctor signup form
 router.get('/doctor-signup', (req, res) => {
-    const successMessage = req.flash('success');
-    const errorMessage = req.flash('error');
-    res.render('doctorSignup', { successMessage, errorMessage });
+    res.render('doctorSignup', { successMessage: req.flash('success'), errorMessage: req.flash('error') });
 });
 
 // Doctor Registration
-router.post('/doctor/doctor-signup', async (req, res) => {
+router.post('/doctor-signup', async (req, res) => {
     try {
-        // Check if the Doctor with the provided Username already exists
-        const existingDoctor = await Doctor.findOne({ username: req.body.username });
-        if (existingDoctor) {
-            // If Doctor with the same Username exists, set an error flash message
+        const { username, speciality, password, mobile, email, name } = req.body;
+        
+        if (await Doctor.findOne({ username })) {
             req.flash('error', 'Doctor with this Username already exists.');
-            return res.redirect('/doctor/doctor-signup');
+            return res.redirect('/doctor-signup');
         }
 
-        const doctor = new Doctor({
-            username: req.body.username,
-            speciality: req.body.speciality,
-            password: await bcrypt.hash(req.body.password, 10),
-            mobile: req.body.mobile,
-            email: req.body.email,
-            name: req.body.name,
-            role: 'doctor',  // Set the default role here
-        });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const doctor = new Doctor({ username, speciality, password: hashedPassword, mobile, email, name, role: 'doctor' });
 
         await doctor.save();
-        // req.flash('success', 'Doctor registered successfully.');
-        res.redirect("/doctor-login");
+        req.flash('success', 'Doctor registered successfully.');
+        res.redirect('/doctor-login');
     } catch (error) {
         console.error('Error registering doctor:', error);
-        // req.flash('error', 'Email Already Exists');
-        res.redirect('/doctor/doctor-signup');
+        req.flash('error', 'Error registering doctor.');
+        res.redirect('/doctor-signup');
     }
 });
 
 // Render doctor profile
 router.get('/doctor-profile', authenticate, async (req, res) => {
     try {
-        const doctorId = req.user._id;
-        const doctor = await Doctor.findById(doctorId);
+        const doctor = await Doctor.findById(req.user._id);
+        if (!doctor) return res.status(404).send('Doctor not found');
 
-        if (doctor) {
-            res.render('doctorProfile', { doctor });
-        } else {
-            res.status(404).send('Doctor not found');
-        }
+        res.render('doctorProfile', { doctor });
     } catch (error) {
         console.error('Error fetching doctor profile:', error);
         res.status(500).send('Internal Server Error');
@@ -91,71 +78,56 @@ router.get('/doctor-profile', authenticate, async (req, res) => {
 
 // Render doctor login form
 router.get('/doctor-login', (req, res) => {
-    const successMessage = req.flash('success');
-    const errorMessage = req.flash('error');
-    res.render('doctorLogin', { successMessage, errorMessage });
+    res.render('doctorLogin', { successMessage: req.flash('success'), errorMessage: req.flash('error') });
 });
 
 // Handle doctor login
 router.post('/doctor-login', async (req, res) => {
     try {
         const { username, password } = req.body;
-
         const doctor = await Doctor.findOne({ username });
-        if (doctor) {
-            const isPasswordValid = await bcrypt.compare(password, doctor.password);
-            // console.log(`Entered Password: ${password}`);
-            // console.log(`Stored Hashed Password: ${doctor.password}`);
-            if (isPasswordValid) {
-                req.flash('success', 'Doctor Login successfully.');
-                const generateToken = jwt.sign({ _id: doctor._id }, SECRETKEY);
-                res.cookie("jwtName", generateToken, {
-                    httpOnly: true
-                });
-                res.redirect('/doctor-profile');
-            } else {
-                req.flash('error', 'Invalid username or password');
-                res.redirect("/doctor-login");
-            }
-        } else {
-            req.flash('error', 'Doctor not found');
-            res.redirect("/doctor-login");
+
+        if (!doctor || !(await bcrypt.compare(password, doctor.password))) {
+            req.flash('error', 'Invalid username or password');
+            return res.redirect('/doctor-login');
         }
+
+        const token = jwt.sign({ _id: doctor._id }, SECRETKEY, { expiresIn: '1h' });
+        res.cookie('jwtName', token, { httpOnly: true });
+        req.flash('success', 'Doctor Login successful.');
+        res.redirect('/doctor-profile');
     } catch (error) {
         console.error('Error during doctor login:', error);
-        req.flash('error', 'Invalid username or password');
-        res.redirect("/doctor-login");
+        req.flash('error', 'Login failed');
+        res.redirect('/doctor-login');
     }
 });
 
-// ###############################  DOCTOR DETAILS  #################################
-
-router.get("/doctors/:id", async (req, res) => {
+// Get all doctors (doctor details page)
+router.get('/doctors/:id', async (req, res) => {
     try {
-        const doctors = await Doctor.find(); // Fetch all doctors from the database
-        const token = req.cookies.jwtName;
-        res.render('doctorDetails', { doctors, token: token });
-    } catch (error) {
-        console.error('Error fetching doctors:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Serve the edit details page
-router.get('/edit-details', authenticate, async (req, res) => {
-    try {
-        const token = req.cookies.jwtName;
-        if (!token) {
-            return res.redirect('/');
-        }
-
-        const decoded = jwt.verify(token, SECRETKEY);
-        const doctor = await Doctor.findById(decoded._id);
+        // Use req.params.id to fetch the specific doctor by ID
+        const doctor = await Doctor.findById(req.params.id);
 
         if (!doctor) {
             return res.status(404).send('Doctor not found');
         }
 
+        // Render doctorDetails page with the doctor data and the JWT token from cookies
+        res.render('doctorDetails', { doctor, token: req.cookies.jwtName });
+    } catch (error) {
+        console.error('Error fetching doctor:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+// Serve the edit details page
+router.get('/edit-details', authenticate, async (req, res) => {
+    try {
+        const doctor = await Doctor.findById(req.user._id);
+        if (!doctor) return res.status(404).send('Doctor not found');
+        
         res.render('DoctorEditDetails', { doctor });
     } catch (error) {
         console.error('Error serving edit details page:', error);
@@ -166,36 +138,11 @@ router.get('/edit-details', authenticate, async (req, res) => {
 // Handle edit details form submission
 router.post('/edit-details', authenticate, upload.single('profileImage'), async (req, res) => {
     try {
-        const token = req.cookies.jwtName;
-        if (!token) {
-            return res.redirect('/');
-        }
-
-        const decoded = jwt.verify(token, SECRETKEY);
-        const {
-            name,
-            username,
-            email,
-            mobile,
-            speciality,
-            role
-        } = req.body;
-
-        const updatedFields = {
-            name,
-            username,
-            email,
-            mobile,
-            speciality,
-            role
-        };
-
-        if (req.file) {
-            updatedFields.profileImage = req.file.filename;
-        }
-
-        await Doctor.findByIdAndUpdate(decoded._id, updatedFields);
-
+        const { name, username, email, mobile, speciality, role } = req.body;
+        const updatedFields = { name, username, email, mobile, speciality, role };
+        if (req.file) updatedFields.profileImage = req.file.filename;
+        
+        await Doctor.findByIdAndUpdate(req.user._id, updatedFields);
         res.redirect('/doctor-profile');
     } catch (error) {
         console.error('Error updating doctor details:', error);
@@ -205,13 +152,13 @@ router.post('/edit-details', authenticate, upload.single('profileImage'), async 
 
 // Handle doctor logout
 router.post('/doctor-logout', (req, res) => {
-    res.cookie("jwtName", "", { expires: new Date(0), httpOnly: true });
-    res.redirect('/'); // Redirect to the homepage or login page after logout
+    res.cookie('jwtName', '', { expires: new Date(0), httpOnly: true });
+    res.redirect('/');
 });
 
 // Home route
-router.get("/", (req, res) => {
-    res.render("home");
+router.get('/', (req, res) => {
+    res.render('home');
 });
 
-module.exports = router;
+export default router;

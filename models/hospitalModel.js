@@ -1,6 +1,6 @@
 // models/hospitalModel.js
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const hospitalSchema = new mongoose.Schema({
   gstin: {

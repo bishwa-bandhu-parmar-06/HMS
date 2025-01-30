@@ -1,218 +1,160 @@
-const express = require('express');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import multer from 'multer';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+import Admin from '../models/adminModel.js';
+import Notification from '../models/notificationModel.js';
+import authenticate from '../middleware/auth.js';
+import Patient from '../models/patientModel.js';
+import Doctor from '../models/doctorModel.js';
+import Hospital from '../models/hospitalModel.js';
+
 const router = express.Router();
-const Admin = require('../models/adminModel');
-const Notification = require('../models/notificationModel'); // Import the Notification model
-const bcrypt = require('bcrypt');
-const flash = require("connect-flash");
-const jwt = require("jsonwebtoken");
-const SECRETKEY = "NOTESAPI";
-const cookieParser = require("cookie-parser");
-const authenticate = require("../middleware/auth");
-const path = require('path');
-const multer = require('multer');
-const fs = require('fs');
-const Patient = require("../models/patientModel");
-const Doctor = require("../models/doctorModel");
-const Hospital = require("../models/hospitalModel");
 router.use(cookieParser());
 
-// Function to create a notification
+const SECRETKEY = 'NOTESAPI';
+
+// **Fix for __dirname in ES Modules**
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// **Function to create a notification**
 async function createNotification(userId, message) {
     try {
-        const notification = new Notification({
-            userId, // Ensure the field matches your schema
-            message
-        });
+        const notification = new Notification({ userId, message });
         await notification.save();
     } catch (error) {
-        console.error("Error creating notification:", error);
+        console.error('Error creating notification:', error);
     }
 }
 
-// Ensure upload directory exists
+// **Ensure upload directory exists**
 const uploadDir = path.join(__dirname, '../public/images/uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Set up multer for file uploads
+// **Set up multer for file uploads**
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images/uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
+    destination: (req, file, cb) => cb(null, uploadDir),
+    filename: (req, file, cb) =>
+        cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-// Render admin signup form
+// **Render admin signup form**
 router.get('/admin-signup', (req, res) => {
-    const successMessage = req.flash('success');
-    const errorMessage = req.flash('error');
-    res.render('adminSignup', { successMessage, errorMessage });
+    res.render('adminSignup');
 });
 
-// Admin Registration
+// **Admin Registration**
 router.post('/admin-signup', async (req, res) => {
     try {
-        const { username, name, email, mobile, password, role} = req.body;
+        const { username, name, email, mobile, password, role } = req.body;
 
-        // Check if the Admin with the provided Username already exists
         const existingAdmin = await Admin.findOne({ username });
         if (existingAdmin) {
-            req.flash('error', 'Admin with this Username already exists.');
-            return res.redirect('/admin/admin-signup');
+            return res.status(400).json({ message: 'Admin with this username already exists.' });
         }
 
-        const admin = new Admin({
-            username,
-            password: await bcrypt.hash(password, 10),
-            mobile,
-            email,
-            name,
-            role,
-            id: Date.now(),
-        });
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const admin = new Admin({ username, password: hashedPassword, mobile, email, name, role, id: Date.now() });
 
         await admin.save();
-
         await createNotification(admin._id, 'A new admin has registered.');
 
-        req.flash('success', 'Admin registered successfully.');
-        res.redirect('/admin/admin-login');
+        res.status(201).json({ message: 'Admin registered successfully.' });
     } catch (error) {
         console.error('Error registering admin:', error);
-        req.flash('error', 'Error adding Admin');
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-// Render admin login form
+// **Render admin login form**
 router.get('/admin-login', (req, res) => {
-    const successMessage = req.flash('success');
-    const errorMessage = req.flash('error');
-    res.render('adminLogin', { successMessage, errorMessage });
+    res.render('adminLogin');
 });
 
-// Handle admin login form submission
+// **Handle admin login**
 router.post('/admin/admin-login', async (req, res) => {
     try {
         const { username, password } = req.body;
-
         const admin = await Admin.findOne({ username });
 
-        if (admin) {
-            const isPasswordValid = await bcrypt.compare(password, admin.password);
-
-            if (isPasswordValid) {
-                req.flash('success', 'Admin Login successfully.');
-                const generateToken = jwt.sign({ _id: admin._id }, SECRETKEY);
-                res.cookie("jwtName", generateToken, {
-                    httpOnly: true
-                });
-                res.redirect('/admin/admin-profile');
-            } else {
-                req.flash('error', 'Invalid username or password');
-                res.redirect("/admin-login");
-            }
-        } else {
-            req.flash('error', 'Admin not found');
-            res.redirect("/admin-login");
+        if (!admin || !(await bcrypt.compare(password, admin.password))) {
+            return res.status(401).json({ message: 'Invalid username or password' });
         }
+
+        const token = jwt.sign({ _id: admin._id }, SECRETKEY, { expiresIn: '1h' });
+        res.cookie('jwtName', token, { httpOnly: true });
+
+        res.json({ message: 'Admin Login successful.' });
     } catch (error) {
         console.error('Error during admin login:', error);
-        req.flash('error', 'Invalid username or password');
-        res.redirect("/admin-login");
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-// Render admin profile
+// **Render admin profile**
 router.get('/admin-profile', authenticate, async (req, res) => {
     try {
         const adminId = req.user._id;
-
         const admin = await Admin.findById(adminId);
-        const patient = await Patient.find(); // Assuming you have a User model to fetch registered users
-        const doctor = await Doctor.find();
-        const hospital = await Hospital.find();
-        if (!admin) {
-            return res.status(404).send('Admin not found');
-        }
+        if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
+        const patients = await Patient.find();
+        const doctors = await Doctor.find();
+        const hospitals = await Hospital.find();
         const notifications = await Notification.find({ userId: adminId });
 
-        res.render('adminProfile', { admin, notifications, patient, doctor, hospital });
+        res.render('adminProfile', { admin, notifications, patients, doctors, hospitals });
     } catch (error) {
         console.error('Error fetching admin profile:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-
-// Serve the edit details page
+// **Serve the edit details page**
 router.get('/edit-details', authenticate, async (req, res) => {
     try {
-        const token = req.cookies.jwtName;
-        if (!token) {
-            return res.redirect('/');
-        }
-
-        const decoded = jwt.verify(token, SECRETKEY);
-        const admin = await Admin.findById(decoded._id);
-
-        if (!admin) {
-            return res.status(404).send('Admin not found');
-        }
+        const admin = await Admin.findById(req.user._id);
+        if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
         res.render('AdminEditDetails', { admin });
     } catch (error) {
         console.error('Error serving edit details page:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-// Handle edit details form submission
+// **Handle edit details form submission**
 router.post('/edit-details', authenticate, upload.single('profileImage'), async (req, res) => {
     try {
-        const token = req.cookies.jwtName;
-        if (!token) {
-            return res.redirect('/');
-        }
+        const { name, username, email, mobile } = req.body;
+        const updatedFields = { name, username, email, mobile };
 
-        const decoded = jwt.verify(token, SECRETKEY);
-        const {
-            name,
-            username,
-            email,
-            mobile,
-        } = req.body;
+        if (req.file) updatedFields.profileImage = req.file.filename;
 
-        const updatedFields = {
-            name,
-            username,
-            email,
-            mobile,
-        };
+        await Admin.findByIdAndUpdate(req.user._id, updatedFields);
 
-        if (req.file) {
-            updatedFields.profileImage = req.file.filename;
-        }
-
-        await Admin.findByIdAndUpdate(decoded._id, updatedFields);
-
-        res.redirect('/admin-profile');
+        res.json({ message: 'Admin details updated successfully.' });
     } catch (error) {
         console.error('Error updating admin details:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
-// Admin Logout
+// **Admin Logout**
 router.post('/admin-logout', (req, res) => {
-    res.cookie("jwtName", "", { expires: new Date(0), httpOnly: true });
-    res.redirect('/'); // Redirect to the homepage or login page after logout
+    res.cookie('jwtName', '', { expires: new Date(0), httpOnly: true });
+    res.json({ message: 'Logout successful.' });
 });
 
-module.exports = router;
+export default router;

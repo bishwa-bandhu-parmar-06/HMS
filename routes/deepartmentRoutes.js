@@ -1,4 +1,4 @@
-const express = require("express");
+import express from 'express';
 const router = express.Router();
 
 router.get('/orthopaedics', (req, res) => {
@@ -112,4 +112,4 @@ router.get('/GastroSurgery', (req, res) => {
     res.render('Deepartments/GastroSurgery.ejs');
 });
 
-module.exports = router;
+export default router;

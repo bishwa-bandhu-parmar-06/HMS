@@ -1,9 +1,10 @@
 
-const express = require('express');
+import express from'express';
 const router = express.Router();
-const Doctor = require('../models/doctorModel');
-const Appointment = require('../models/appointformModel');
-const ensureAuthenticated = require('../middleware/auth');
+import Doctor from'../models/doctorModel.js';
+import Appointment from'../models/appointformModel.js';
+import ensureAuthenticated from'../middleware/auth.js';
+
 
 
 router.get('/:id',ensureAuthenticated,async (req, res) => {
@@ -57,4 +58,4 @@ router.post('/:id', async (req, res) => {
 
 
 
-module.exports = router;
+export default router;

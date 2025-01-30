@@ -227,21 +227,7 @@
         </li> 
        <%} else {%>
             
-            <!-- <li>
-                <% if (patient.role === 'patient') { %>
-                    <form action="/patient/patient-logout" method="POST" id="logoutbtn1">
-                        <button type="submit" id="logoutbtn">Logout</button>
-                    </form>
-                <% } else if (doctor.role === 'doctor') { %>
-                    <form action="/doctor/doctor-logout" method="POST" id="logoutbtn1">
-                        <button type="submit" id="logoutbtn">Logout</button>
-                    </form>
-                <% } else if (admin.role === 'admin') { %>
-                    <form action="/admin/admin-logout" method="POST" id="logoutbtn1">
-                        <button type="submit" id="logoutbtn">Logout</button>
-                    </form>
-                <% } %>  
-            </li> -->
+            
             <li>
                 <form action="/patient/patient-logout" method="POST" id="logoutbtn1">
                     <button type="submit" id="logoutbtn">Logout</button>
@@ -250,13 +236,6 @@
             
             <li id="Login">
                 <a href="/doctor/doctor-profile">Profile</a>
-                <!-- <% if (patient.role === 'patient') { %>
-                    <a href="/patient/patient-profile">Profile</a>
-                <% } else if (doctor.role === 'doctor') { %>
-                    <a href="/doctor/doctor-profile">Profile</a>
-                <% } else if (admin.role === 'admin') { %>
-                    <a href="/admin/admin-profile">Profile</a>
-                <% } %> -->
             </li>
        <% }%>
     </ul>
@@ -474,7 +453,7 @@
     
     <!-- ############################ SERVICE SECTION HAS STARTED ############################ -->
 
-    <!-- <h1 class="heading" id="services1">Aatura's Services</h1>
+    <h1 class="heading" id="services1">Aatura's Services</h1>
     <p class="heading-para">Aatura provide the world class health care.</p>
     <div class="all-departments">
         <div class="departments-item">
@@ -500,7 +479,7 @@
             </ul>
         </div> 
     </div>
-    <hr> -->
+    <hr>
 
 
     <!-- ############################ SERVICE SECTION HAS FINISHED ############################ -->
@@ -785,77 +764,6 @@
     </footer>  
     
 
-    
-
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-    // Reference to the input field and suggestions container
-    const searchInput = $('#searchInput');
-    const suggestionsContainer = $('#main-container-for-suggestions');
-
-    // Function to perform a search based on the selected suggestion
-    const performSearch = (selectedSuggestion) => {
-        // Update the input field with the selected suggestion
-        searchInput.val(selectedSuggestion.name);
-
-        // Perform the search
-        window.location.href = `/search?q=${selectedSuggestion.name}`;
-    };
-
-    // Event listener for input changes
-    searchInput.on('input', function() {
-        const query = searchInput.val();
-
-        // Make an AJAX request to your server to get suggestions
-        $.ajax({
-            url: `/suggest?q=${query}`,
-            method: 'GET',
-            success: function(response) {
-                // Update the suggestions container with the received suggestions
-                suggestionsContainer.html('');
-                response.forEach(suggestion => {
-                    const suggestionElement = $(`<div>${suggestion.name}</div>`);
-
-
-                    suggestionElement.css({
-                        backgroundColor: '#fff',
-                        padding: '10px',
-                        border: '1px solid #ccc',
-                        borderRadius: '5px',
-                        margin: '5px',
-                        fontSize: "20px",
-                        color: "#000",
-                        cursor: 'pointer', // Add a pointer cursor for better interaction
-                        transition: 'background-color 0.3s ease', // Smooth transition effect
-                    });
-                    //Add hover effect
-                        suggestionElement.hover(
-                            function () {
-                                $(this).css('background-color', '#007C9D');
-                            },
-                            function () {
-                                $(this).css('color', '#f9f9f9');
-                            },
-                            function () {
-                                $(this).css('textDecoration', 'underline');
-                            }
-                        );
-                    // Attach a click event to the suggestion to perform the search
-                    suggestionElement.click(() => performSearch(suggestion));
-
-                    suggestionsContainer.append(suggestionElement);
-                });
-            },
-            error: function(error) {
-                console.error('Error fetching suggestions:', error);
-            }
-            });
-        });
-    });
-    </script>
-    
     <script src="/javascript/home.js"></script>  
 </body>
 </html>
