@@ -4,13 +4,8 @@ import Patient from '../models/patientModel.js';
 import upload from'../middleware/upload.js'; // Import the upload middleware
 
 import bcrypt from 'bcrypt';
-import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
-import authenticate from "../middleware/auth.js";
-import path from 'path';
-import multer from 'multer';
-import Notification from '../models/notificationModel.js';
-import bodyParser from 'body-parser';
+
 
 router.use(cookieParser()); // Initialize cookie-parser middleware
 
@@ -161,10 +156,9 @@ router.post('/edit-details', upload.single('profileImage'), async (req, res) => 
         req.flash('error', 'Please login to edit your details.');
         return res.redirect('/patient/patient-login');
     }
-
+    // D:\Web\HMS\public\images\uploads\profileImage-1738234140699-372609464.jpg
     const { name, email } = req.body;
-    const profileImage = req.file ? `/uploads/${req.file.filename}` : null; // Get the file path if uploaded
-
+    const profileImage = req.file ? `${req.file.filename}` : null; // Get the file path if uploaded
     try {
         // Fetch the patient's data from the database
         const patient = await Patient.findById(req.session.patientId);

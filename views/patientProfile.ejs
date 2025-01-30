@@ -61,9 +61,9 @@
         <div class="div">
             <div class="patientImage">
                 <% if (patient.profileImage) { %>
-                    <img src="/uploads/<%= patient.profileImage %>" alt="Profile Image">
+                    <img src="/images/uploads/<%=patient.profileImage %>"  alt="Profile">
                 <% } else { %>
-                    <img src="../images/doc.jpg" alt="Profile Image">
+                    <img src="/images/doc.jpg" alt="Profile">
                 <% } %>
             </div>
             <button>Edit</button>
