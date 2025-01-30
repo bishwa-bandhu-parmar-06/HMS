@@ -10,12 +10,6 @@ import multer from 'multer';
 import Notification from '../models/notificationModel.js';
 import bodyParser from 'body-parser';
 
-// Middleware to parse request body
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
-
 router.use(cookieParser()); // Initialize cookie-parser middleware
 
 // Render patient signup form
@@ -53,7 +47,8 @@ router.post("/patient-signup", async (req, res) => {
 
         // Redirect to patient login page after successful registration
         req.flash('success', 'Registration successful! Please login.');
-        return res.redirect('/patient/patient-login');
+        console.log('Patient registered successfully:');
+        return res.redirect('/patient-login');
         
     } catch (error) {
         console.error(error);
@@ -61,5 +56,73 @@ router.post("/patient-signup", async (req, res) => {
         return res.redirect('/patient-signup');
     }
 });
+
+
+
+
+router.get('/patient-dashboard', async (req, res) => {
+    if (!req.session.patientId) {
+        req.flash('error', 'Please login to access the dashboard.');
+        return res.redirect('/patient/patient-login');
+    }
+
+    try {
+        // Fetch the patient's data from the database
+        const patient = await Patient.findById(req.session.patientId);
+
+        if (!patient) {
+            req.flash('error', 'Patient not found.');
+            return res.redirect('/patient/patient-login');
+        }
+
+        // Render the patientProfile.ejs template and pass the patient data
+        res.render('patientProfile', { patient });
+    } catch (error) {
+        console.error('Error fetching patient data:', error);
+        req.flash('error', 'An error occurred. Please try again.');
+        res.redirect('/patient/patient-login');
+    }
+});
+
+router.get('/patient-login', (req, res) => {
+    res.render('login'); // Ensure you have a `patientLogin.ejs` file in your views folder
+});
+// Login route for patients
+router.post("/patient-login", async (req, res) => {
+    const { email, password } = req.body;
+
+    console.log('Request body:', req.body);
+
+    try {
+        // Check if the patient exists by email
+        const existingPatient = await Patient.findOne({ email });
+
+        if (!existingPatient) {
+            console.log('No patient found with this email:', email);
+            req.flash('error', 'No patient found with this email.');
+            return res.redirect('/patient-login'); // Redirect back to login page
+        }
+
+        // Compare the entered password with the hashed password in the database
+        const isMatch = await bcrypt.compare(password, existingPatient.password);
+
+        if (!isMatch) {
+            console.log('Incorrect password for email:', email);
+            req.flash('error', 'Incorrect password. Please try again.');
+            return res.redirect('/patient-login'); // Redirect back to login page
+        }
+
+        // If login is successful, you can save the user session or send a success response
+        req.session.patientId = existingPatient._id; // Store the patient ID in the session
+        req.flash('success', 'Login successful!');
+        return res.redirect('/patient/patient-dashboard'); // Redirect to the patient's dashboard or home page
+
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'An error occurred. Please try again.');
+        return res.redirect('/patient-login'); // Redirect back to login page
+    }
+});
+
 
 export default router;
