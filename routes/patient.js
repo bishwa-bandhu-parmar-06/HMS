@@ -1,6 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import Patient from '../models/patientModel.js';
+import upload from'../middleware/upload.js'; // Import the upload middleware
+
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
@@ -12,7 +14,10 @@ import bodyParser from 'body-parser';
 
 router.use(cookieParser()); // Initialize cookie-parser middleware
 
-// Render patient signup form
+
+
+
+// #########################################  PATIENT REGISTRATION   ###################################
 router.get('/patient-signup', (req, res) => {
     res.render('register');
 });
@@ -58,7 +63,7 @@ router.post("/patient-signup", async (req, res) => {
 });
 
 
-
+// #########################################  PATIENT DASHBOARD   ###################################
 
 router.get('/patient-dashboard', async (req, res) => {
     if (!req.session.patientId) {
@@ -83,6 +88,10 @@ router.get('/patient-dashboard', async (req, res) => {
         res.redirect('/patient/patient-login');
     }
 });
+
+
+// #########################################  PATIENT LOGIN   ###################################
+
 
 router.get('/patient-login', (req, res) => {
     res.render('login'); // Ensure you have a `patientLogin.ejs` file in your views folder
@@ -121,6 +130,66 @@ router.post("/patient-login", async (req, res) => {
         console.error(error);
         req.flash('error', 'An error occurred. Please try again.');
         return res.redirect('/patient-login'); // Redirect back to login page
+    }
+});
+
+
+
+// #########################################  PATIENT EDIT DETAILS   ###################################
+
+router.get('/edit-details', async (req, res) => {
+    if (!req.session.patientId) {
+        req.flash('error', 'Please login to edit your details.');
+        return res.redirect('/patient/patient-login');
+    }
+
+    try {
+        const patient = await Patient.findById(req.session.patientId);
+        res.render('patientdetailsEdit', { patient });
+    } catch (error) {
+        console.error('Error fetching patient data:', error);
+        req.flash('error', 'An error occurred. Please try again.');
+        res.redirect('/patient/patient-dashboard');
+    }
+});
+
+
+
+
+router.post('/edit-details', upload.single('profileImage'), async (req, res) => {
+    if (!req.session.patientId) {
+        req.flash('error', 'Please login to edit your details.');
+        return res.redirect('/patient/patient-login');
+    }
+
+    const { name, email } = req.body;
+    const profileImage = req.file ? `/uploads/${req.file.filename}` : null; // Get the file path if uploaded
+
+    try {
+        // Fetch the patient's data from the database
+        const patient = await Patient.findById(req.session.patientId);
+
+        if (!patient) {
+            req.flash('error', 'Patient not found.');
+            return res.redirect('/patient/patient-dashboard');
+        }
+
+        // Update the patient's details
+        patient.name = name;
+        patient.email = email;
+        if (profileImage) {
+            patient.profileImage = profileImage; // Update profile image only if a new file is uploaded
+        }
+
+        // Save the updated patient data
+        await patient.save();
+
+        req.flash('success', 'Your details have been updated successfully.');
+        res.redirect('/patient/patient-dashboard');
+    } catch (error) {
+        console.error('Error updating patient details:', error);
+        req.flash('error', 'An error occurred. Please try again.');
+        res.redirect('/patient/edit-details');
     }
 });
 

@@ -17,7 +17,10 @@ const patientSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'patient'
-    }
+    },
+    profileImage: {
+        type: String
+    } // Add this field
 });
 
 const Patient = mongoose.model('Patient', patientSchema);

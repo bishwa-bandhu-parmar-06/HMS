@@ -82,7 +82,7 @@ app.use('/visitors', homeroutes);
 app.use('/deepartments', deepartmentRoutes);
 app.use('/services', ServicesRoutes);
 app.use('/patientAppointment', patientAppointmentRoute);
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'images', 'uploads')));
+
 
 // Socket.IO setup
 io.on('connection', (socket) => {
