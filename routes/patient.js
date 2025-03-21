@@ -188,4 +188,8 @@ router.post('/edit-details', upload.single('profileImage'), async (req, res) => 
 });
 
 
+router.get('/patient-logout', (req, res) => {
+    res.redirect('/home'); // Ensure you have a `patientLogin.ejs` file in your views folder
+});
+
 export default router;
