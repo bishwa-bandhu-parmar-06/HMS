@@ -1,27 +1,37 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const connect = async () => {
+const connectDB = async () => {
     try {
         const dbURI = process.env.BACKEND_URI;
+        if (!dbURI) throw new Error("❌ BACKEND_URI is not defined in environment variables.");
 
-        // Connect to MongoDB with updated options
-        await mongoose.connect(dbURI);
-        console.log('✅ Connected to MongoDB');
+        mongoose.set("strictQuery", false); // Ensure compatibility with Mongoose 7+
 
-        mongoose.connection.on('disconnected', () => {
-            console.warn('⚠️ Disconnected from MongoDB');
+        await mongoose.connect(dbURI, { 
+            useNewUrlParser: true, 
+            useUnifiedTopology: true 
         });
 
-        process.on('SIGINT', async () => {
+        console.log("✅ Connected to MongoDB");
+
+        mongoose.connection.on("disconnected", () => {
+            console.warn("⚠️ Disconnected from MongoDB");
+        });
+
+        mongoose.connection.on("error", (err) => {
+            console.error("❌ MongoDB connection error:", err);
+        });
+
+        process.on("SIGINT", async () => {
             await mongoose.connection.close();
-            console.log('❌ MongoDB connection closed due to app termination');
+            console.log("❌ MongoDB connection closed due to app termination");
             process.exit(0);
         });
 
     } catch (err) {
-        console.error('❌ MongoDB connection error:', err);
+        console.error("❌ MongoDB connection error:", err.message);
         process.exit(1); // Exit process if DB connection fails
     }
 };
 
-export default { connect };
+export default connectDB;  // Export as a function instead of an object
