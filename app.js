@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import database config
-import dbConfig from './database/config.js';
+import connectDB  from './database/config.js';
 
 // Import routes
 
@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Connect to database
-dbConfig.connect();
+connectDB();
 
 // Set up static file serving
 app.use(express.static(path.join(__dirname, 'public')));
