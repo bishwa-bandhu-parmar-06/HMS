@@ -5,8 +5,7 @@ const connect = async () => {
         const dbURI = process.env.BACKEND_URI;
 
         // Connect to MongoDB with updated options
-        await mongoose.connect(dbURI, {
-        });
+        await mongoose.connect(dbURI);
         console.log('✅ Connected to MongoDB');
 
         mongoose.connection.on('disconnected', () => {
