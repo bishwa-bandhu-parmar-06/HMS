@@ -1,29 +1,32 @@
-import express  from 'express';
+import express from 'express';
 const router = express.Router();
-import Doctor  from '../models/doctorModel.js';
+import Doctor from '../models/doctorModel.js';
 
-
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const doctor = await Doctor.findById(req.params.id);
-//     if (!doctor) {
-//       return res.render('error', { error: 'Doctor not found' });
-//     }
-//     res.render('doctorDetails', { doctor });
-//   } catch (error) {
-//     console.error('Error fetching doctor profile:', error);
-//     res.status(500).render('error', { error: 'Internal Server Error' });
-//   }
-// });
-
-
-router.get('/doctors/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-      const doctors = await Doctor.find();
-      res.render('doctorDetails', { doctors, token: req.cookies.jwtName });
+    // First check if mongoose is connected
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error('Database not connected');
+    }
+
+    const doctor = await Doctor.findById(req.params.id).exec();
+    
+    if (!doctor) {
+      return res.status(404).render('error', { 
+        error: 'Doctor not found' 
+      });
+    }
+
+    res.render('doctorDetails', { 
+      doctor, // Note: singular 'doctor' not 'doctors'
+      token: req.cookies.jwtName 
+    });
   } catch (error) {
-      console.error('Error fetching doctors:', error);
-      res.status(500).send('Internal Server Error');
+    console.error('Error fetching doctor:', error);
+    res.status(500).render('error', { 
+      error: error.message || 'Internal Server Error' 
+    });
   }
 });
+
 export default router;

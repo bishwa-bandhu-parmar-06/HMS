@@ -210,6 +210,7 @@
 
         <div class="form-container">
             <form id="login-form" action="/patient/patient-login" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <h2>Patient Login</h2>
                 <!-- <div class="form-group">
                     <label for="username">Username:</label>

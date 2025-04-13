@@ -50,7 +50,7 @@ const upload = multer({ storage });
 
 // **Render admin signup form**
 router.get('/admin-signup', (req, res) => {
-    res.render('adminSignup');
+    res.render('adminSignup', { csrfToken: req.csrfToken() });
 });
 
 // **Admin Registration**
@@ -60,7 +60,8 @@ router.post('/admin-signup', async (req, res) => {
 
         const existingAdmin = await Admin.findOne({ username });
         if (existingAdmin) {
-            return res.status(400).json({ message: 'Admin with this username already exists.' });
+            req.flash('error', 'Admin with this username already exists.');
+            return res.redirect('/admin/admin-signup');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -70,10 +71,12 @@ router.post('/admin-signup', async (req, res) => {
         await admin.save();
         await createNotification(admin._id, 'A new admin has registered.');
 
-        res.status(201).json({ message: 'Admin registered successfully.' });
+        req.flash('success', 'Admin registered successfully!');
+        res.redirect('/admin/admin-login');
     } catch (error) {
         console.error('Error registering admin:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        req.flash('error', 'Internal Server Error');
+        res.redirect('/admin/admin-signup');
     }
 });
 
@@ -83,22 +86,24 @@ router.get('/admin-login', (req, res) => {
 });
 
 // **Handle admin login**
-router.post('/admin/admin-login', async (req, res) => {
+router.post('/admin-login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const admin = await Admin.findOne({ username });
 
         if (!admin || !(await bcrypt.compare(password, admin.password))) {
-            return res.status(401).json({ message: 'Invalid username or password' });
+            req.flash('error', 'Invalid username or password');
+            return res.redirect('/admin/admin-login');
         }
 
-        const token = jwt.sign({ _id: admin._id }, SECRETKEY, { expiresIn: '1h' });
+        const token = jwt.sign({ _id: admin._id }, process.env.JWT_SECRET || SECRETKEY, { expiresIn: '1h' });
         res.cookie('jwtName', token, { httpOnly: true });
-
-        res.json({ message: 'Admin Login successful.' });
+        req.flash('success', 'Login successful!');
+        res.redirect('/admin/admin-profile');
     } catch (error) {
         console.error('Error during admin login:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        req.flash('error', 'Internal Server Error');
+        res.redirect('/admin/admin-login');
     }
 });
 
