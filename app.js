@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import database config
-import connectDB from './database/config.js';
+import dbConfig from './database/config.js';
 
 // Import routes
 import patientAppointmentRoute from './routes/appointmentForm.js';
